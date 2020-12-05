@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# sript to restart XX node
+# to execute systemctl add nopasswd execution for sudo users:
+# sudo vim /etc/sudoers
+# %sudo  ALL=(ALL) NOPASSWD: ALL
+
 SCRIPT_DIR=`cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P`
 XXNODE_PID=`ps -e | grep xxnetwork-node | grep defunct`
 
