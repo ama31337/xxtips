@@ -14,6 +14,6 @@ else
     echo "`date` ALARM, need to restart node"
     sudo systemctl stop xxnetwork-node.service
     sudo systemctl start xxnetwork-node.service
-    "${SCRIPT_DIR}/Send_msg_toTelBot.sh" "$HOSTNAME inform you:" "XX node defunct and restarted now"  2>&1 > /dev/null
+    "${SCRIPT_DIR}/../Send_msg_toTelBot.sh" "$HOSTNAME inform you:" "XX node defunct and restarted now"  2>&1 > /dev/null
 fi
 
