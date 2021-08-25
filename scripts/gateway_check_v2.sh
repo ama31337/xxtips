@@ -15,7 +15,6 @@ then
     echo "XX gateway offline"
     sudo systemctl restart xxnetwork-gateway.service
     "${SCRIPT_DIR}/../Send_msg_toTelBot.sh" "$HOSTNAME inform you:" "XX gateway was offline and restarted now"  2>&1 > /dev/null
-    echo "online"
 else
     echo "online"
 fi
