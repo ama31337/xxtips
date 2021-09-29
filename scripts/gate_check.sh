@@ -6,19 +6,10 @@
 # %sudo  ALL=(ALL) NOPASSWD: ALL
 
 SCRIPT_DIR=`cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P`
-cmix_check=$(sudo systemctl status xxnetwork-cmix.service | grep running)
 node_check=$(sudo systemctl status xxnetwork-chain.service | grep running)
+gate_check=$(sudo systemctl status xxnetwork-gateway.service | grep running)
 
 echo `date`
-
-if [[ -z "$cmix_check" ]]
-then
-    echo "XX cmix offline"
-    sudo systemctl restart xxnetwork-cmix.service
-    "${SCRIPT_DIR}/../Send_msg_toTelBot.sh" "$HOSTNAME inform you:" "XX cmix was offline and restarted now"  2>&1 > /dev/null
-else
-    echo "online"
-fi
 
 if [[ -z "$node_check" ]]
 then
@@ -29,3 +20,11 @@ else
     echo "online"
 fi
 
+if [[ -z "$gate_check" ]]
+then
+    echo "XX gate offline"
+    sudo systemctl restart xxnetwork-gateway.service
+    "${SCRIPT_DIR}/../Send_msg_toTelBot.sh" "$HOSTNAME inform you:" "XX gateway was offline and restarted now"  2>&1 > /dev/null
+else
+    echo "online"
+fi
