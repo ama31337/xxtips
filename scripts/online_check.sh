@@ -13,8 +13,8 @@ ONLINE_CHECK=$(echo $API_DATA | jq -r .node.status)
 if [[ -z "$ONLINE_CHECK" ]]
 then
     echo "offline"
-    sudo systemctl restart xxnetwork-node.service
-    sudo systemctl restart xxnetwork-gateway.service
+    #sudo systemctl restart xxnetwork-node.service
+    #sudo systemctl restart xxnetwork-gateway.service
     "${SCRIPT_DIR}/../Send_msg_toTelBot.sh" "$HOSTNAME inform you:" "XX node was offline and restarted now"  2>&1 > /dev/null
     echo "online"
 else
