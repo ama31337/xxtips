@@ -66,7 +66,7 @@ else
     echo "online"
 fi
 
-if [[ ! -z "$gate_check_decunct" ]]
+if [[ ! -z "$gate_check_defunct" ]]
 then
     echo "XX gate defunct"
     sudo systemctl restart xxnetwork-gateway.service
