@@ -10,6 +10,8 @@ node_check=$(sudo systemctl status xxnetwork-chain.service | grep running)
 gate_check=$(sudo systemctl status xxnetwork-gateway.service | grep running)
 node_check_ps=$(ps -e | grep xxnetwork-chain)
 gate_check_ps=$(ps -e | grep xxnetwork-gate)
+node_check_defunct=$(ps -e | grep xxnetwork-chain | grep defunct)
+gate_check_defunct=$(ps -e | grep xxnetwork-gate | grep defunct)
 
 echo `date`
 
@@ -31,6 +33,8 @@ else
     echo "online"
 fi
 
+sleep 15
+
 if [[ -z "$node_check_ps" ]]
 then
     echo "XX node process offline"
@@ -45,6 +49,28 @@ then
     echo "XX gate offline"
     sudo systemctl restart xxnetwork-gateway.service
     "${SCRIPT_DIR}/../Send_msg_toTelBot.sh" "$HOSTNAME inform you:" "XX gateway process was offline and restarted now"  2>&1 > /dev/null
+else
+    echo "online"
+fi
+
+
+
+sleep 15
+
+if [[ ! -z "$node_check_defunct" ]]
+then
+    echo "XX node process defunct"
+    sudo systemctl restart xxnetwork-chain.service
+    "${SCRIPT_DIR}/../Send_msg_toTelBot.sh" "$HOSTNAME inform you:" "XX node process was defunct and restarted now"  2>&1 > /dev/null
+else
+    echo "online"
+fi
+
+if [[ ! -z "$gate_check_decunct" ]]
+then
+    echo "XX gate defunct"
+    sudo systemctl restart xxnetwork-gateway.service
+    "${SCRIPT_DIR}/../Send_msg_toTelBot.sh" "$HOSTNAME inform you:" "XX gateway process was defunct and restarted now"  2>&1 > /dev/null
 else
     echo "online"
 fi
